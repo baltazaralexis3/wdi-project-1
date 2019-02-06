@@ -1,4 +1,7 @@
 /*----- constants -----*/ 
+
+
+
 const oBrk = [
     [0,0,0,0],
     [0,1,1,0],
@@ -163,8 +166,8 @@ for (var row = 0; row < rows; row++) {
 
 /*----- app's state (variables) -----*/ 
 var score;
-var brkInPlay;
-var nxtBrk;
+var pieceInPlay;
+var nxtPiece;
 var time;
 var roundActive;
 /*----- cached element references -----*/ 
@@ -188,29 +191,43 @@ function drawCell(x, y) {
     ctx.strokeRect(x*unit, y*unit, unit, unit)
 };
 
-drawBrk = function(x, y) {
-    ctx.fillStyle = '#901902';
-    ctx.fillRect(x*unit, y*unit, unit, unit);
-    ctx.strokeStyle = '#ffeebb';
-    ctx.strokeRect(x*unit, y*unit, unit, unit)
-};
+class brk {
+    constructor(x, y, dx, dy) {
+        this.x = x*unit;
+        this.y = y*unit;
+        this.dx = dx;
+        this.dy = dy;
+    }
 
-drawBrk(1,1);
+    drawBrk() {
+        ctx.fillStyle = '#901902';
+        ctx.fillRect(this.x, this.y, unit, unit);
+        ctx.strokeStyle = '#ffeebb';
+        ctx.strokeRect(this.x, this.y, unit, unit)
+    }
 
-function clear(x, y) {
-    ctx.clearRect(x*unit, y*unit, unit, unit);
+    // clearBrk() {
+    //     ctx.clearRect(this.x, this.y, unit, unit);
+    //     drawCell();
+    // }
+    test() {
+        console.log('working')
+    }
 }
 
-function mvRt() {
-    drawBrk(x, y);
-    // clear(x, y);
-    // drawCell(x, y);
-};
+let newBrk = new brk(3, 3);
+let newBrk2 = new brk(5, 5);
 
-mvRt();
+newBrk.drawBrk();
+newBrk.test();
+newBrk2.drawBrk();
+newBrk2.test();
 
+// drawBrk = function(x, y) {
+//     ctx.fillStyle = '#901902';
+//     ctx.fillRect(x*unit, y*unit, unit, unit);
+//     ctx.strokeStyle = '#ffeebb';
+//     ctx.strokeRect(x*unit, y*unit, unit, unit)
+// };
 
-function mvLft() {};
-function mvDwn() {};
-function fall() {};
-
+// drawBrk(1,1);
