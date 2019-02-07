@@ -5,23 +5,28 @@ body {
     font-style: normal;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 4fr;
-    grid-template-areas: 
+    grid-template-rows: 1fr 6fr;
+    /*grid-template-areas: 
         "title title",
-        "lft rt";
+        "lft rt";*/
 }
 
 h1 {
-    grid-area: 'title';
-    margin: 0 auto 0 auto;
+    /*grid-area: 'title';*/
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
 }
 
 #gameside {
-    grid-area: 'lft';
+    /*grid-area: 'lft';*/
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
 }
 
 #betoside {
-    grid-area: 'rt';
+    /*grid-area: 'rt';*/
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
 }
 #grid {
     border: 10px solid black;
@@ -61,6 +66,7 @@ button {
 }
 #time {
     font-size: 80px;
+    margin-left: -80px;
 }
 #score {
     font-size: 80px;
