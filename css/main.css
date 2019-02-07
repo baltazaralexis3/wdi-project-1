@@ -1,3 +1,28 @@
+
+body {
+    font-family: abolition, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 4fr;
+    grid-template-areas: 
+        "title title",
+        "lft rt";
+}
+
+h1 {
+    grid-area: 'title';
+    margin: 0 auto 0 auto;
+}
+
+#gameside {
+    grid-area: 'lft';
+}
+
+#betoside {
+    grid-area: 'rt';
+}
 #grid {
     border: 10px solid black;
 }
@@ -5,4 +30,38 @@
 #play {
     border: 10px solid black;
     position: absolute;
+}
+
+h1 {
+    font-size: 110px;
+}
+
+button {
+    border: none;
+    background-color: black;
+    border-radius: 12px;
+    color: white;
+    font-family: abolition, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    
+}
+
+#beto {
+
+}
+
+#trump {
+    margin-bottom: -150px;
+    margin-left: -150px;
+}
+
+#logo {
+    margin-bottom: -150px;
+}
+#time {
+    font-size: 80px;
+}
+#score {
+    font-size: 80px;
 }
