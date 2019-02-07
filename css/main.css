@@ -1,3 +1,8 @@
-canvas {
+#grid {
     border: 10px solid black;
+}
+
+#play {
+    border: 10px solid black;
+    position: absolute;
 }
