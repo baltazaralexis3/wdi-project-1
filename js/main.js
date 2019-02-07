@@ -1,14 +1,5 @@
 /*----- constants -----*/ 
 
-//player controls
-// let pressRt = false;
-// let pressLft = false;
-// let pressDwn = false;
-
-// let releaseRt = false;
-// let releaseLft = false;
-// let releaseDown = false;
-
 //board
 const boardArea = document.querySelector('#play');
 const ctx = boardArea.getContext('2d');
@@ -23,6 +14,10 @@ const boardHt = boardArea.height;
 
 const board = [];
 
+const howto = document.querySelector('#instr');
+
+const start = document.querySelector('#start');
+
 /*----- app's state (variables) -----*/ 
 var score = null;
 var pieceInPlay;
@@ -30,8 +25,52 @@ var time;
 var gameInProgress = false;
 /*----- cached element references -----*/ 
 /*----- event listeners -----*/ 
+
+//player controls
+
+let pressRt = false;
+let pressLft = false;
+let pressDwn = false;
+
+document.addEventListener('keydown', keyDownHandler);
+document.addEventListener('keyup', keyUpHandler);
+
+howto.addEventListener('click', showInstr);
+
+start.addEventListener('click', init);
+
 /*----- functions -----*/
 
+function keyDownHandler(evt) {
+    if (evt.keyCode == 39) {
+        pressRt = true;
+    } else if (evt.keyCode == 37) {
+        pressLft = true;
+    } else if (evt.keyCode == 40) {
+        pressDwn = true;
+    }
+}
+
+function keyUpHandler(evt) {
+    if (evt.keyCode == 39) {
+        pressRt = false;
+    } else if (evt.keyCode == 37) {
+        pressLft = false;
+    } else if (evt.keyCode == 40) {
+        pressDwn = false;
+    }
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; 
+  }
+function showInstr() {
+    alert('Your objective is to make Beto run by building Trump’s border wall. As the bricks fall, use the arrow keys to move them around and make them fit together in complete rows. Get points by laying down as many complete rows of bricks as you can before the round is over! Don’t let the bricks pile up or the wall will fall over!');
+}
+
+function init() {}
 
 function drawBoard() {
     for (var row = 0; row < rows; row++) {
@@ -71,13 +110,23 @@ class brk {
         this.y += this.dy;
         }
     }
+
+    move() {
+        if (this.y < 29*unit) {
+        if (pressRt && this.x < 500 - this.size*unit) {
+            this.x += 1;
+        } else if (pressLft && this.x > 0) {
+            this.x -= 1;
+        } else if (pressDwn) {
+            this.y += 1;
+        } 
+    }
+    }
+
 }
 
 
-let Brk2 = new brk(8, 0, 0, 1.5, 5);
-
-
-
+let Brk2 = new brk(8, 0, 0, 1);
 
 
 function animate() {
@@ -86,13 +135,12 @@ function animate() {
     ctx.clearRect(0, 0, boardWidth, boardHt);
     Brk2.drawBrk();
     Brk2.fall();
+    Brk2.move();
   }
   animate();
 
-  function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min; 
-  }
+  
 
-  window.addEventListener('load', init);
+
+
+//   window.addEventListener('load', init);
