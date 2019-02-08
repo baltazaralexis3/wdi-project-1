@@ -12,7 +12,6 @@ const cols = 20;
 const boardWidth = boardArea.width;
 const boardHt = boardArea.height;
 
-const board = [];
 
 const howto = document.querySelector('#instr');
 
@@ -20,9 +19,11 @@ const start = document.querySelector('#start');
 
 /*----- app's state (variables) -----*/ 
 var score = null;
-var pieceInPlay;
+var inactive = [];
+var pieceInPlay
 var time;
 var gameInProgress = false;
+
 /*----- cached element references -----*/ 
 /*----- event listeners -----*/ 
 
@@ -42,21 +43,21 @@ start.addEventListener('click', init);
 /*----- functions -----*/
 
 function keyDownHandler(evt) {
-    if (evt.keyCode == 39) {
+    if (evt.keyCode == 78) {
         pressRt = true;
-    } else if (evt.keyCode == 37) {
+    } else if (evt.keyCode == 86) {
         pressLft = true;
-    } else if (evt.keyCode == 40) {
+    } else if (evt.keyCode == 66) {
         pressDwn = true;
     }
 }
 
 function keyUpHandler(evt) {
-    if (evt.keyCode == 39) {
+    if (evt.keyCode == 78) {
         pressRt = false;
-    } else if (evt.keyCode == 37) {
+    } else if (evt.keyCode == 86) {
         pressLft = false;
-    } else if (evt.keyCode == 40) {
+    } else if (evt.keyCode == 66) {
         pressDwn = false;
     }
 }
@@ -70,7 +71,11 @@ function showInstr() {
     alert('Your objective is to make Beto run by building Trump’s border wall. As the bricks fall, use the arrow keys to move them around and make them fit together in complete rows. Get points by laying down as many complete rows of bricks as you can before the round is over! Don’t let the bricks pile up or the wall will fall over!');
 }
 
-function init() {}
+function init() {
+    ctx.clearRect(0, 0, boardWidth, boardHeight);
+    setTimeout();
+
+}
 
 function drawBoard() {
     for (var row = 0; row < rows; row++) {
@@ -89,14 +94,16 @@ function drawCell(x, y) {
     ctx2.strokeRect(x*unit, y*unit, unit, unit)
 };
 
-class brk {
-    constructor(x, y, dx, dy, size) {
+
+
+class actvBrk {
+    constructor(x, y, dy, size) {
         this.x = x*unit;
         this.y = y*unit;
-        this.dx = dx;
-        this.dy = dy;
+        this.dy = 2;
         this.size = getRandomInt(2, 5);
     }
+
 
     drawBrk() {
         ctx.fillStyle = '#901902';
@@ -118,15 +125,19 @@ class brk {
         } else if (pressLft && this.x > 0) {
             this.x -= 1;
         } else if (pressDwn) {
-            this.y += 1;
+            this.dy += .15;
         } 
     }
     }
-
+    deactivate() {
+        if (this.y > 29*unit) {
+           ctx.save();
+        }
+    }
 }
 
 
-let Brk2 = new brk(8, 0, 0, 1);
+let Brk2 = new actvBrk(8, 0);
 
 
 function animate() {
@@ -136,11 +147,13 @@ function animate() {
     Brk2.drawBrk();
     Brk2.fall();
     Brk2.move();
+    // Brk2.deactivate();
   }
   animate();
 
   
+function generateBrk() {
+
+}
 
 
-
-//   window.addEventListener('load', init);
